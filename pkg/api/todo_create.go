@@ -13,7 +13,7 @@ import (
 
 func createToDo(app *aclow.App, router *routing.Router) {
 	handler := func(ctx *routing.Context) error {
-		reply, err := app.Call("core@lcreating_todo", aclow.Message{}) // TODO: Implementar
+		reply, err := app.Call("core@creating_todo", aclow.Message{}) // TODO: Implementar
 
 		ctx.SetContentType("application/json")
 
