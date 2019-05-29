@@ -36,5 +36,5 @@ func deleteToDo(app *aclow.App, router *routing.Router) {
 		return err
 	}
 
-	router.Get("/todos", handler)
+	router.Delete("/todos/<id>", handler)
 }

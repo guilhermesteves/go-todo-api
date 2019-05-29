@@ -33,5 +33,5 @@ func loadToDo(app *aclow.App, router *routing.Router) {
 		return err
 	}
 
-	router.Get("/todos", handler)
+	router.Get("/todos/<id>", handler)
 }
