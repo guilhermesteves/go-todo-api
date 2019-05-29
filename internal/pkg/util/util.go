@@ -4,6 +4,8 @@ import (
 	"log"
 )
 
+var DefaultTimeMask = "2006-01-02T15:04:05-0700"
+
 func Check(err error) {
 	if err != nil {
 		log.Panic(err)
