@@ -1,0 +1,149 @@
+---
+swagger: "2.0"
+info:
+  description: API de TODOs com Swagger, Protobuf & Go Bindata
+  version: 1.0.0
+  title: API de TODOs
+  contact:
+    email: ola@guilhermesteves.dev
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: 'h.o.s.t'
+schemes:
+- http
+- https
+paths:
+  /todos:
+    get:
+      summary: Lista todos os ToDos
+      description: |
+        Lista todos os ToDos
+      operationId: listToDo
+      produces:
+      - application/json
+      responses:
+        200:
+          description: ToDos encontrados
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ToDo'
+        400:
+          description: Objeto ou campo inválido
+    post:
+      summary: Cria um ToDo
+      description: |
+        Cria um ToDo
+      operationId: createToDo
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: ToDo a ser criado
+        required: true
+        schema:
+          $ref: '#/definitions/CreateBody'
+      responses:
+        200:
+          description: Criado
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        400:
+          description: Objeto ou campo inválido
+  /todos/{id}:
+    get:
+      summary: Pega um ToDo pelo id
+      description: |
+        Ao passar o id, você recebe o ToDo
+      operationId: loadToDo
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Um id que identifica o ToDo
+        required: true
+        type: string
+      responses:
+        200:
+          description: ToDo encontrado
+          schema:
+            $ref: '#/definitions/ToDo'
+        400:
+          description: Objeto ou campo inválido
+        404:
+          description: ToDo não encontrado
+    put:
+      summary: Atualiza um ToDo pelo id
+      description: |
+        Ao passar o id, você pode atualizar o ToDo
+      operationId: updateToDo
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Um id que identifica o ToDo
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: ToDo a ser atualizado
+        required: true
+        schema:
+          $ref: '#/definitions/ToDo'
+      responses:
+        200:
+          description: ToDo encontrado
+          schema:
+            $ref: '#/definitions/ToDo'
+        400:
+          description: Objeto ou campo inválido
+        404:
+          description: ToDo não encontrado
+    delete:
+      summary: Deleta um ToDo pelo id
+      description: Deleta um ToDo pelo id
+      operationId: deleteToDo
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: O id do ToDo
+        required: true
+        type: string
+      responses:
+        200:
+          description: ToDo deletado
+        400:
+          description: Objeto ou campo inválido
+        404:
+          description: ToDo não encontrado
+definitions:
+  CreateBody:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Lista de compras
+        description: Nome do seu ToDo
+  CreateResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id do ToDo criado
+  ToDo:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      createdAt:
+        type: string
+      updatedAt:
+        type: string

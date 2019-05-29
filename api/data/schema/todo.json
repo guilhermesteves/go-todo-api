@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "description": "Estrutura que representa um ToDo",
+  "required": [
+    "_id",
+    "name",
+    "createdAt",
+    "updatedAt"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Hash de documentType+':'+document"
+    },
+    "name": {
+      "type": "string",
+      "description": "Nome do ToDo"
+    },
+    "createdAt": {
+      "bsonType": "date",
+      "description": "Data de criação"
+    },
+    "updatedAt": {
+      "bsonType": "date",
+      "description": "Data da última alteração"
+    },
+  }
+}
