@@ -13,7 +13,7 @@ import (
 
 func listToDo(app *aclow.App, router *routing.Router) {
 	handler := func(ctx *routing.Context) error {
-		reply, err := app.Call("core@listing_todos", aclow.Message{})
+		reply, err := app.Call("core@listing_todo", aclow.Message{})
 
 		ctx.SetContentType("application/json")
 
