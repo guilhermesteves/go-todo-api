@@ -11,7 +11,7 @@
   "properties": {
     "_id": {
       "type": "string",
-      "description": "Hash de documentType+':'+document"
+      "description": "id do ToDo"
     },
     "name": {
       "type": "string",
@@ -24,6 +24,6 @@
     "updatedAt": {
       "bsonType": "date",
       "description": "Data da última alteração"
-    },
+    }
   }
 }
