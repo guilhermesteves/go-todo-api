@@ -1,0 +1,1 @@
+swagger generate model -f ../api/api/swagger.yml -m apimodel -t ../internal/pkg/api
