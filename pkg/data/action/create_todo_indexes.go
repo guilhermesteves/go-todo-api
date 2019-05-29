@@ -24,7 +24,7 @@ func (n *CreateTodoIndexes) Execute(msg aclow.Message, call aclow.Caller) (aclow
 	client := n.app.Resources["mongo"].(*mongo.Client)
 	db := client.Database(config.MongoDbDatabase())
 
-	db.Collection("col_event").Indexes().CreateMany(context.TODO(), []mongo.IndexModel{
+	db.Collection("col_todo").Indexes().CreateMany(context.TODO(), []mongo.IndexModel{
 		mongo.IndexModel{Keys: bson.M{"name": 1}},
 	}, &options.CreateIndexesOptions{})
 
