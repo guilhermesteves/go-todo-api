@@ -1,6 +1,8 @@
 package action
 
-import "github.com/guilhermesteves/aclow"
+import (
+	"github.com/guilhermesteves/aclow"
+)
 
 type UpdateTodo struct {
 	app  *aclow.App
@@ -13,5 +15,5 @@ func (n *UpdateTodo) Start(app *aclow.App) {
 }
 
 func (n *UpdateTodo) Execute(msg aclow.Message, call aclow.Caller) (aclow.Message, error) {
-    return aclow.Message{}, nil
+	return aclow.Message{}, nil
 }
