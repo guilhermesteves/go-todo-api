@@ -1,6 +1,6 @@
 # Agilizando arquitetura de modelos com Swagger e Protobuf
 
-Exemplo de projeto de API usando Swagger, Protobuf &
+Exemplo de projeto de API usando Swagger, Protobuf & Bindata para facilitar a sua vida
 
 ## Instalação
 
