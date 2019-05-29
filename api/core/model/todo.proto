@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message ToDo {
+  string id = 1;
+  string name = 2;
+  string createdAt = 3;
+  string updatedAt = 4;
+}
