@@ -1,6 +1,11 @@
 package flow
 
-import "github.com/guilhermesteves/aclow"
+import (
+	"fmt"
+	"github.com/guilhermesteves/aclow"
+	"github.com/guilhermesteves/go-todo-api/internal/pkg/core/message"
+	"github.com/guilhermesteves/go-todo-api/internal/pkg/core/model"
+)
 
 type CreatingTodo struct {
 	app  *aclow.App
@@ -13,7 +18,17 @@ func (n *CreatingTodo) Start(app *aclow.App) {
 }
 
 func (n *CreatingTodo) Execute(msg aclow.Message, call aclow.Caller) (aclow.Message, error) {
+	body := msg.Body.(message.CreatingToDoResquest)
 
+	reply, _ := call("data@create_todo", aclow.Message{Body: body.Todo.Name})
 
-	return aclow.Message{}, nil
+	if reply.Body == nil {
+		return aclow.Message{}, fmt.Errorf("ERROR")
+	}
+
+	todo := reply.Body.(model.ToDo)
+
+	return aclow.Message{Body: message.CreatingToDoResponse{
+		Todo: &todo,
+	}}, nil
 }

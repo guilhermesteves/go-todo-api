@@ -2,18 +2,26 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/guilhermesteves/go-todo-api/pkg/api/transformer"
+	"github.com/guilhermesteves/go-todo-api/internal/pkg/api/apimodel"
+	"github.com/guilhermesteves/go-todo-api/internal/pkg/core/model"
 	"log"
 
-	routing "github.com/qiangxue/fasthttp-routing"
 	"github.com/guilhermesteves/aclow"
 	"github.com/guilhermesteves/go-todo-api/internal/pkg/core/message"
+	routing "github.com/qiangxue/fasthttp-routing"
 	"github.com/valyala/fasthttp"
 )
 
 func createToDo(app *aclow.App, router *routing.Router) {
 	handler := func(ctx *routing.Context) error {
-		reply, err := app.Call("core@creating_todo", aclow.Message{}) // TODO: Implementar
+		body := apimodel.CreateBody{}
+		err := json.Unmarshal([]byte(ctx.PostBody()), &body)
+
+		todo := &model.ToDo{ Name: body.Name }
+		requestBody := message.CreatingToDoResquest{
+			Todo: todo,
+		}
+		reply, err := app.Call("core@creating_todo", aclow.Message{Body: requestBody})
 
 		ctx.SetContentType("application/json")
 
@@ -26,7 +34,9 @@ func createToDo(app *aclow.App, router *routing.Router) {
 		}
 
 		replyBody := reply.Body.(message.CreatingToDoResponse).Todo
-		responseBody, err := json.Marshal(transformer.ToDoToAPIToDo(replyBody))
+		responseBody, err := json.Marshal(apimodel.CreateResponse{
+			ID: replyBody.Id,
+		})
 
 		ctx.SetBody(responseBody)
 		ctx.SetStatusCode(fasthttp.StatusOK)

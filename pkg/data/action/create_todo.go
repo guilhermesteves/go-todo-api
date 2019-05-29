@@ -25,8 +25,7 @@ func (n *CreateTodo) Execute(msg aclow.Message, call aclow.Caller) (aclow.Messag
 	client := n.app.Resources["mongo"].(*mongo.Client)
 	db := client.Database(config.MongoDbDatabase())
 
-	body := msg.Body.(map[string]interface{})
-	name := body["name"].(string)
+	name := msg.Body.(string)
 
 	todo := model.ToDo{}
 	todo.Id = uuid.New().String()
