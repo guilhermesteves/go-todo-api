@@ -1,0 +1,6 @@
+syntax = "proto3";
+option go_package = "github.com/guilhermesteves/go-todo-api/internal/pkg/core/message";
+
+message LoadingToDoResquest {
+    string id = 1;
+}
