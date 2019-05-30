@@ -27,11 +27,12 @@ func (n *CreateTodo) Execute(msg aclow.Message, call aclow.Caller) (aclow.Messag
 
 	name := msg.Body.(string)
 
-	todo := model.ToDo{}
-	todo.Id = uuid.New().String()
-	todo.Name = name
-	todo.CreatedAt = time.Now().Format(util.DefaultTimeMask)
-	todo.UpdatedAt = time.Now().Format(util.DefaultTimeMask)
+	todo := model.ToDo{
+		Id: 		uuid.New().String(),
+		Name: 		name,
+		CreatedAt: 	time.Now().Format(util.DefaultTimeMask),
+		UpdatedAt:	time.Now().Format(util.DefaultTimeMask),
+	}
 
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
 	_, err := db.Collection("col_todo").InsertOne(ctx, todo)
