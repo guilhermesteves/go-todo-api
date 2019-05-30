@@ -1,5 +1,7 @@
 # Agilizando arquitetura de modelos com Swagger e Protobuf
 
+## Talk sobre esse projeto: [Arquitetura de Modelos](https://speakerdeck.com/guilhermesteves/agilizando-arquitetura-de-modelos-com-swagger-e-protobuf) 
+
 Exemplo de projeto de API usando Swagger, Protobuf & Bindata para facilitar a sua vida
 
 ## Instalação
