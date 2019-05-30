@@ -1,6 +1,6 @@
-# Agilizando arquitetura de modelos com Swagger e Protobuf
+# Go ToDo API (com [Aclow](https://github.com/AlexMarco7/aclow))
 
-## Talk sobre esse projeto: [Arquitetura de Modelos](https://speakerdeck.com/guilhermesteves/agilizando-arquitetura-de-modelos-com-swagger-e-protobuf) 
+### Talk sobre esse projeto: [Agilizando arquitetura de modelos com Swagger e Protobuf](https://speakerdeck.com/guilhermesteves/agilizando-arquitetura-de-modelos-com-swagger-e-protobuf) 
 
 <p align="center">
   <img src="./cover.png"/>
