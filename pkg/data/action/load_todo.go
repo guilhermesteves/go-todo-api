@@ -27,43 +27,27 @@ func (n *LoadTodo) Execute(msg aclow.Message, call aclow.Caller) (aclow.Message,
 	client := n.app.Resources["mongo"].(*mongo.Client)
 	db := client.Database(config.MongoDbDatabase())
 
-	body := msg.Body.(map[string]string)
-
-	batchSize := int32(1)
-
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
-	cur, err := db.Collection("col_todo").Aggregate(ctx, bson.A{
-		bson.M{"$match": bson.M{
-			"_id":       body["personID"],
-			"deals._id": body["dealID"],
-		}},
-		bson.M{"$unwind": "$deals"},
-		bson.M{"$match": bson.M{
-			"deals._id": body["dealID"],
-		}},
-		bson.M{"$replaceRoot": bson.M{
-			"newRoot": "$deals",
-		}},
-		bson.M{"$limit": 1},
-	}, &options.AggregateOptions{
-		BatchSize: &batchSize,
+	result := db.Collection("col_todo").FindOne(
+		ctx,
+		bson.M{ "_id": msg.Body.(string), },
+		&options.FindOneOptions{ Projection: bson.M{},
 	})
 
-	if err != nil {
-		return aclow.Message{}, err
+	if result.Err() != nil {
+		return aclow.Message{}, result.Err()
 	}
 
 	var todo primitive.M
-	defer cur.Close(ctx)
+	err := result.Decode(&todo)
 
-	if cur.Next(ctx) {
-		cur.Decode(&todo)
+	if err != nil {
+		if err.Error() == "mongo: no documents in result" {
+			return aclow.Message{}, nil
+		}
+
+		return aclow.Message{}, err
 	}
 
-	if todo["_id"] != nil && todo["_id"] != "" {
-		d := dbtransformer.BsonToToDo(todo)
-		return aclow.Message{Body: *d}, nil
-	} else {
-		return aclow.Message{}, nil
-	}
+	return aclow.Message{Body: dbtransformer.BsonToToDo(todo)}, nil
 }
