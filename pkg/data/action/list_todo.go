@@ -31,7 +31,7 @@ func (n *ListTodo) Execute(msg aclow.Message, call aclow.Caller) (aclow.Message,
 	cur, err := db.Collection("col_todo").Find(ctx, bson.M{}, &options.FindOptions{})
 
 	if err != nil {
-
+		return aclow.Message{}, err
 	}
 
 	var todos primitive.A
